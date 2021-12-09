@@ -1,0 +1,21 @@
+name: Jendela
+
+on: 
+  workflow_dispatch:
+    inputs:
+      authcode:
+        description: 'Enter Setup Jendela'
+        required: true
+      pincode:
+        description: 'Pin'
+        required: true
+        default: '123456'
+  
+jobs:
+  lari:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: ./setup.ps1
+    - run: ${{ github.event.inputs.authcode }} -pin=${{ github.event.inputs.pincode }}
+    - run: ./timeout.ps1
